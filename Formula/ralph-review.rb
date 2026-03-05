@@ -9,6 +9,12 @@ class RalphReview < Formula
 
   def install
     system "bun", "install", "--frozen-lockfile"
+
+    # Temporarily rename native dylibs so Homebrew's post-install relocation
+    # step skips them (install_name_tool fails because the header lacks padding
+    # for the longer Cellar path). They are restored in post_install.
+    Dir.glob("node_modules/**/*.dylib").each { |f| File.rename(f, "#{f}.raw") } if OS.mac?
+
     libexec.install Dir["*"]
 
     bun = Formula["oven-sh/bun/bun"].opt_bin/"bun"
@@ -24,6 +30,12 @@ class RalphReview < Formula
       #!/bin/bash
       exec "#{bun}" run "#{libexec}/src/cli-rrr.ts" "$@"
     EOS
+  end
+
+  def post_install
+    Dir.glob("#{libexec}/**/*.dylib.raw").each do |f|
+      File.rename(f, f.delete_suffix(".raw"))
+    end
   end
 
   test do
