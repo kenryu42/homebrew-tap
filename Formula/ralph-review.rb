@@ -1,8 +1,8 @@
 class RalphReview < Formula
   desc "Orchestrating coding agents for code review, verification and fixing"
   homepage "https://github.com/kenryu42/ralph-review"
-  url "https://github.com/kenryu42/ralph-review/archive/refs/tags/v0.2.5.tar.gz"
-  sha256 "99cd62968bc8ae73ef592073db2ddfb451bd04c8c6563dfe81b65f0a77e98a0f"
+  url "https://github.com/kenryu42/ralph-review/archive/refs/tags/v0.2.6.tar.gz"
+  sha256 "0a2ae524ca8cc86c629543d5df23bb635681f1593f5bd196eb782db656b99f66"
   license "MIT"
 
   depends_on "oven-sh/bun/bun"
